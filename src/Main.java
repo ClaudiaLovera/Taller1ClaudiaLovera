@@ -1,0 +1,95 @@
+import java.awt.*;
+import edu.princeton.cs.stdlib.StdDraw;
+
+/**
+ * @author Claudia Lovera 21.008.288-3
+ */
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        /**
+         * @param min rango de la pantalla
+         * @param max rango de la pantalla
+         * @param velocidadX velocidad de la linea en el vector x
+         * @param velocidadY velocidad de la linea en el vector y
+         */
+        //Tamaño de la pantalla
+        double min = 1.0;
+        double max = -1.0;
+
+        StdDraw.setXscale(min,max);
+        StdDraw.setYscale(min,max);
+
+        //Evita el parpadeo de la pantalla
+        StdDraw.enableDoubleBuffering();
+
+
+        //Posicion inicial de la primera Linea
+        double x0 = min + (max-min) * Math.random();
+        double y0 = min + (max-min) * Math.random();
+        double x1 = min + (max-min) * Math.random();
+        double y1 = min + (max-min) * Math.random();
+
+
+        //Velocidad de las lineas
+        double velocidadX = Math.random();
+        double velocidadY = Math.random();
+
+        Color[] colores = {Color.PINK, Color.CYAN, Color.MAGENTA, Color.GREEN, Color.GRAY, Color.ORANGE};
+
+
+        while(true){
+
+                //Chequea si alguno de los bordes de la linea choca con el borde del lienzo
+                if(Math.abs(x0 + velocidadX) > 1.0 && Math.abs(x1 + velocidadX) > 1.0 ){
+                    velocidadX = -velocidadX;
+                }
+                if(Math.abs(y0 + velocidadY) > 1.0 && Math.abs(y1 + velocidadY) > 1.0 ){
+                    velocidadY = -velocidadY;
+                }
+
+                //Asigna colores aleatorios a las lineas
+                int random = (int)(Math.random()* colores.length);
+                Color color = colores[random];
+                StdDraw.setPenColor(color);
+
+                //Dibuja la primera linea a seguir
+                StdDraw.line(x0,y0,x1,y1);
+
+                //Ciclo que muestra las 6 lineas que seguiran a la primera
+                for(int i = 0; i<6;i++){
+                    StdDraw.setPenColor(color);
+                    StdDraw.line(x0,y0,x1,y1);
+                    StdDraw.show();
+
+                    //Actualizacion de las lineas
+                    x0 +=velocidadX;
+                    y0 +=velocidadY;
+                    x1 +=velocidadX;
+                    y1 +=velocidadY;
+
+                    StdDraw.setPenColor(color);
+                    StdDraw.line(x0,y0,x1,y1);
+                    StdDraw.show();
+
+                }
+
+                StdDraw.clear();
+                StdDraw.pause(700);
+
+
+            }
+        }
+
+    }
+
+
+
+
+
+
+
+
+
